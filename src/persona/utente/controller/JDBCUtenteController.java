@@ -14,95 +14,97 @@ import persona.utente.model.Utente;
 
 public class JDBCUtenteController implements UtenteManager {
 
-	public JDBCUtenteController() { }
+	public JDBCUtenteController() {
+	}
 
-  @Override
+	@Override
 	public Utente login(String u, String p) {
-    Connection con = null;
-    Statement st = null;
-    ResultSet rs = null;
-    Utente utente = null;
 
-    try {
-      con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/gamingplatform", "root", "root" );
+		Connection con = null;
+		Statement st = null;
+		ResultSet rs = null;
+		Utente utente = null;
 
-      st = con.createStatement();
-      rs = st.executeQuery("SELECT t.*, "
-            + "tk.name AS title_kind_name  "
-          + "FROM title t INNER JOIN title_kind tk "
-          + "WHERE t.title_kind_id = tk.title_kind_id "
-          + "ORDER BY t.name");
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gamingplatform", "root", "");
 
-      while (rs.next()){
-        String username = rs.getString("Username");
-        String email = rs.getString("Email");
-        String password = rs.getString("Password");
-        String nome = rs.getString("Nome");
-        String cognome = rs.getString("Cognome");
-        int livello = rs.getInt("Livello");
-        int pe = rs.getInt("PE");
+			st = con.createStatement();
+			rs = st.executeQuery(
+					"SELECT * " + "FROM utente " + "WHERE utente.Username='" + u + "' AND utente.Password='" + p + "'");
 
-        utente = new Utente(username, nome, cognome, email, password, livello, pe);
-      }
+			while (rs.next()) {
+				String username = rs.getString("Username");
+				String email = rs.getString("Email");
+				String password = rs.getString("Password");
+				String nome = rs.getString("Nome");
+				String cognome = rs.getString("Cognome");
+				int livello = rs.getInt("Livello");
+				int pe = rs.getInt("PE");
 
-    } catch (SQLException e) {
-      e.printStackTrace();
-      return new Utente();
-    } finally {
-            if (rs!=null) {
-                try {
-                   rs.close();
-                } catch (SQLException e) {/*Do Nothing*/}
-            }
-            if (st!=null) {
-                try {
-                   st.close();
-                } catch (SQLException e) {/*Do Nothing*/}
-            }
-            if (con!=null) {
-                try {
-                   con.close();
-                } catch (SQLException e) {/*Do Nothing*/}
-            }
-         }
+				utente = new Utente(username, email, password, nome, cognome, livello, pe);
+			}
 
-    return utente;
-  }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+					return new Utente();
+				} catch (SQLException e) {
+					/* Do Nothing */}
+			}
+			if (st != null) {
+				try {
+					st.close();
+				} catch (SQLException e) {
+					/* Do Nothing */}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					/* Do Nothing */}
+			}
+		}
 
-  @Override
+		return utente;
+	}
+
+	@Override
 	public boolean signup(String username, String email, String password) {
-    Connection con = null;
-    PreparedStatement ps = null;
+		Connection con = null;
+		PreparedStatement ps = null;
 
-    try {
-      con = DriverManager.getConnection( "jdbc:mysql://localhost/gamingplatform", "root", "root" );
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost/gamingplatform", "root", "root");
 
-      String sql = "INSERT INTO utente(title_id, name, title_kind_id, "
-            + "description, author, isbn, publication_year, editor)"
-            + "VALUES(NULL,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO utente(Username,Password,Email,Livello,PE)" + "VALUES(username,password,email)";
 
-      ps = con.prepareStatement(sql);
-      ps.setString( 1, username);
-      ps.setString( 2, email);
-      ps.setString( 3, password);
+			ps = con.prepareStatement(sql);
+			ps.setString(1, username);
+			ps.setString(2, email);
+			ps.setString(3, password);
 
-      ps.executeUpdate();
+			ps.executeUpdate();
 
-    } catch (SQLException e) {
-      e.printStackTrace();
-      return false;
-    } finally {
-      if (ps!=null) {
-          try {
-             ps.close();
-          } catch (SQLException e) {/*Do Nothing*/}
-      }
-      if (con!=null) {
-          try {
-             con.close();
-          } catch (SQLException e) {/*Do Nothing*/}
-      }
-   }
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					/* Do Nothing */}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					/* Do Nothing */}
+			}
+		}
 
 		return true;
 	}
@@ -113,14 +115,14 @@ public class JDBCUtenteController implements UtenteManager {
 	public void getReview() {
 	}
 
-  public boolean setReview(String idG, String recensione) {
-    //aggiorno la recensione nel database
-    return true;
-  }
+	public boolean setReview(String idG, String recensione) {
+		// aggiorno la recensione nel database
+		return true;
+	}
 
-  public boolean setRating(int punteggio) {
-    return true;
-  }
+	public boolean setRating(int punteggio) {
+		return true;
+	}
 
 	public void rating() {
 	}

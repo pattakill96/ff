@@ -13,15 +13,15 @@ import java.util.List;
 
 public class UtenteView {
 
-  public static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+	public static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-  public UtenteView() {
+	public UtenteView() {
 
-  }
+	}
 
-  public void show() throws IOException {
-    System.out.println("This is the user view");
-    String moderator = reader.readLine();
-  }
+	public void show() throws IOException {
+		System.out.println("This is the user view");
+		String moderator = reader.readLine();
+	}
 
 }
