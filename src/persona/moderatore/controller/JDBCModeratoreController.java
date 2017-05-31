@@ -51,6 +51,7 @@ public class JDBCModeratoreController implements ModeratoreManager {
 			if (rs != null) {
 				try {
 					rs.close();
+					return new Moderatore();
 				} catch (SQLException e) {
 					/* Do Nothing */}
 			}
@@ -68,7 +69,7 @@ public class JDBCModeratoreController implements ModeratoreManager {
 			}
 		}
 
-		return new Moderatore("username", "nome", "cognome", "email", "password");
+		return moderatore;
 	}
 
 	public boolean acceptReview() {

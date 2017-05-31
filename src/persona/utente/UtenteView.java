@@ -1,8 +1,6 @@
 package persona.utente;
 
 import persona.utente.model.Utente;
-import persona.utente.model.Utente;
-import persona.utente.controller.UtenteController;
 import persona.utente.controller.JDBCUtenteController;
 
 import java.io.BufferedReader;
@@ -20,8 +18,16 @@ public class UtenteView {
 	}
 
 	public void show() throws IOException {
-		System.out.println("This is the user view");
+		System.out.println("Visualizza profilo");
 		String moderator = reader.readLine();
+
+		System.out.println("Gioca");
+		String username = reader.readLine();
+
+		System.out.println("Valuta e/o recensisci un gioco");
+		String password = reader.readLine();
+		
+		
 	}
 
 }

@@ -13,12 +13,22 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Iterator;
 import java.util.List;
+import java.io.Console;
+
 
 public class GamingPlatform {
 
 	public static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
 	public static void main(String[] args) throws IOException {
+
+		// Instantiating user and moderator controllers
+	    
+		Console cnsl = null;
+		// UtenteController utenteController = new UtenteController();
+		JDBCUtenteController utenteController = new JDBCUtenteController();
+		// ModeratoreController moderatoreController = new ModeratoreController();
+		JDBCModeratoreController moderatoreController = new JDBCModeratoreController();
 
 		System.out.print("(1) Login\n(2) Sign Up\n(3) Esci\n\n");
 		String line = reader.readLine();
@@ -34,18 +44,14 @@ public class GamingPlatform {
 			String password = reader.readLine();
 
 			if (moderator.equals("n")) {
-				// UtenteController utenteController = new UtenteController();
-				JDBCUtenteController utenteController = new JDBCUtenteController();
 				Utente utente = utenteController.login(username, password);
-				if (utente.getUsername().equals("")) {
+				if (utente == null) {
 					System.out.println("Utente non trovato");
 				} else {
 					UtenteView utenteview = new UtenteView();
 					utenteview.show();
 				}
 			} else {
-				// ModeratoreController moderatoreController = new ModeratoreController();
-				JDBCModeratoreController moderatoreController = new JDBCModeratoreController();
 				Moderatore moderatore = moderatoreController.login(username, password);
 				if (moderatore.getUsername().equals("")) {
 					System.out.println("Moderatore non trovato");
@@ -56,7 +62,36 @@ public class GamingPlatform {
 			}
 
 		} else if (line.equals("2")) {
+
+			System.out.println("Inserisci il tuo username");
+			String username = reader.readLine();
+
+			System.out.println("Inserisci la tua email");
+			String email = reader.readLine();
 			
+			String password = "";
+			try {
+				cnsl = System.console();
+				password = cnsl.readPassword("Inserisci la password per il tuo account: ").toString();
+			} catch(Exception ex) {
+				System.out.println("Inserisci la password per il tuo account");
+				password = reader.readLine();
+			}
+				
+			System.out.println("Inserisci il tuo nome");
+			String nome = reader.readLine();		
+			
+			System.out.println("Inserisci il tuo cognome");
+			String cognome = reader.readLine();
+			
+			Utente utente = utenteController.signup(username, email, password, nome, cognome);
+			if (utente == null) {
+				System.out.println("Problemi nella registrazione");
+			} else {
+				UtenteView utenteview = new UtenteView();
+				utenteview.show();
+			}
+
 		} else if (line.equals("3")) {
 			System.exit(0);
 		}

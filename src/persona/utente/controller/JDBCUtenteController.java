@@ -30,7 +30,7 @@ public class JDBCUtenteController implements UtenteManager {
 
 			st = con.createStatement();
 			rs = st.executeQuery(
-					"SELECT * " + "FROM utente " + "WHERE utente.Username='" + u + "' AND utente.Password='" + p + "'");
+					"SELECT * FROM utente WHERE utente.Username='" + u + "' AND utente.Password='" + p + "'");
 
 			while (rs.next()) {
 				String username = rs.getString("Username");
@@ -50,20 +50,22 @@ public class JDBCUtenteController implements UtenteManager {
 			if (rs != null) {
 				try {
 					rs.close();
-					return new Utente();
 				} catch (SQLException e) {
+					return null;
 					/* Do Nothing */}
 			}
 			if (st != null) {
 				try {
 					st.close();
 				} catch (SQLException e) {
+					return null;
 					/* Do Nothing */}
 			}
 			if (con != null) {
 				try {
 					con.close();
 				} catch (SQLException e) {
+					return null;
 					/* Do Nothing */}
 			}
 		}
@@ -72,41 +74,44 @@ public class JDBCUtenteController implements UtenteManager {
 	}
 
 	@Override
-	public boolean signup(String username, String email, String password) {
+	public Utente signup(String username, String email, String password, String nome, String cognome) {
 		Connection con = null;
 		PreparedStatement ps = null;
 
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost/gamingplatform", "root", "root");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/gamingplatform", "root", "");
 
-			String sql = "INSERT INTO utente(Username,Password,Email,Livello,PE)" + "VALUES(username,password,email)";
+			String sql = "INSERT INTO utente(Username, Password, Email, Nome, Cognome)" + "VALUES(?, ?, ?, ?, ?)";
 
 			ps = con.prepareStatement(sql);
 			ps.setString(1, username);
 			ps.setString(2, email);
 			ps.setString(3, password);
+			ps.setString(4, nome);
+			ps.setString(5, cognome);
 
 			ps.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
+			return null;
 		} finally {
 			if (ps != null) {
 				try {
 					ps.close();
 				} catch (SQLException e) {
+					return null;
 					/* Do Nothing */}
 			}
 			if (con != null) {
 				try {
 					con.close();
 				} catch (SQLException e) {
+					return null;
 					/* Do Nothing */}
 			}
 		}
-
-		return true;
+		return new Utente(username, email, password, nome, cognome, 0, 0);
 	}
 
 	public void play() {

@@ -6,7 +6,7 @@ public interface UtenteManager {
 
 	public Utente login(String email, String password);
 	
-	public boolean signup(String username, String email, String password);
+	public Utente signup(String username, String email, String password, String nome, String cognome);
 	
 	public void play();
 	

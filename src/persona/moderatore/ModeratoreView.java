@@ -1,8 +1,6 @@
 package persona.moderatore;
 
 import persona.moderatore.model.Moderatore;
-import persona.moderatore.model.Moderatore;
-// import persona.moderatore.controller.ModeratoreController;
 import persona.moderatore.controller.JDBCModeratoreController;
 
 import java.io.BufferedReader;
@@ -19,8 +17,14 @@ public class ModeratoreView {
 	}
 
 	public void show() throws IOException {
-		System.out.println("This is the moderator view");
+		System.out.println("Promuovi utente");
 		String moderator = reader.readLine();
+
+		System.out.println("Retrocedi utente");
+		String username = reader.readLine();
+
+		System.out.println("Gestisci recensioni");
+		String password = reader.readLine();
 	}
 
 }

@@ -14,8 +14,8 @@ public class UtenteController implements UtenteManager {
 		return null;
 	}
 
-	public boolean signup(String username, String email, String password) {
-		return true;
+	public Utente signup(String username, String email, String password, String nome, String cognome) {
+		return null;
 	}
 
 	public void play() {

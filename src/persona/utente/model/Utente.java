@@ -10,10 +10,6 @@ public class Utente {
 	private String email;
 	private String password;
 
-	public Utente() {
-		this.username = "";
-	}
-
 	public Utente(String username, String nome, String cognome, String email, String password, int livello, int pe) {
 		this.username = username;
 		this.nome = nome;
