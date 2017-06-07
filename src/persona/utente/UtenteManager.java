@@ -1,6 +1,8 @@
 package persona.utente;
 
 import persona.utente.model.Utente;
+import java.util.*;
+import gioco.model.*;
 
 public interface UtenteManager {
 
@@ -10,7 +12,9 @@ public interface UtenteManager {
 	
 	public void play();
 	
-	public void getReview();
+	public void getReview(); 
+	
+	public ArrayList<Gioco> getGames();
 	
 	public boolean setReview(String idG, String recensione);
 	

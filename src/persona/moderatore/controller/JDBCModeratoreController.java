@@ -80,8 +80,7 @@ public class JDBCModeratoreController implements ModeratoreManager {
 		return true;
 	}
 
-	@Override
-	public ArrayList<Utente> showusers() {
+	@Override public ArrayList<Utente> getUsers() {
 		ArrayList<Utente> lista = new ArrayList<Utente>();
 		Connection con = null;
 		Statement st = null;
@@ -134,9 +133,59 @@ public class JDBCModeratoreController implements ModeratoreManager {
 		return lista;
 	}
 
-	public boolean promoteUser(Utente utente) {
+	@Override public ArrayList<Moderatore> getMods() {
+		ArrayList<Moderatore> lista = new ArrayList<Moderatore>();
 		Connection con = null;
 		Statement st = null;
+		ResultSet rs = null;
+
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gamingplatform", "root", "");
+
+			st = con.createStatement();
+			rs = st.executeQuery("SELECT * " + "FROM moderatore ");
+
+			while (rs.next()) {
+				String username = rs.getString("Username");
+				String email = rs.getString("Email");
+				String password = rs.getString("Password");
+				String nome = rs.getString("Nome");
+				String cognome = rs.getString("Cognome");
+
+				Moderatore moderatore = new Moderatore(username, email, password, nome, cognome);
+				lista.add(moderatore);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return lista;
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+					return lista;
+				} catch (SQLException e) {
+					/* Do Nothing */}
+			}
+			if (st != null) {
+				try {
+					st.close();
+				} catch (SQLException e) {
+					/* Do Nothing */}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					/* Do Nothing */}
+			}
+		}
+
+		return lista;
+	}
+	
+	public boolean promoteUser(Utente utente) {
+		Connection con = null;
 		PreparedStatement ps = null;
 
 		
@@ -174,7 +223,41 @@ public class JDBCModeratoreController implements ModeratoreManager {
 		return true;
 	}
 
-	public boolean demoteUser(Moderatore moderator) {
+	public boolean demoteUser(Moderatore moderatore) {
+		Connection con = null;
+		PreparedStatement ps = null;
+
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gamingplatform", "root", "");
+
+			String sql = ("DELETE " + "FROM moderatore " + "WHERE moderatore.Username='" + moderatore.getUsername() + "'");
+						
+			ps = con.prepareStatement(sql);
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gamingplatform", "root", "");
+
+			String sql = "INSERT INTO utente(Username, Email, Password, Nome, Cognome)" + "VALUES(?, ?, ?, ?, ?)";
+
+			ps = con.prepareStatement(sql);
+			ps.setString(1, moderatore.getUsername());
+			ps.setString(2, moderatore.getEmail());
+			ps.setString(3, moderatore.getPassword());
+			ps.setString(4, moderatore.getNome());
+			ps.setString(5, moderatore.getCognome());
+			
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+
 		return true;
 	}
 

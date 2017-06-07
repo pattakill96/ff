@@ -16,7 +16,8 @@ public class ModeratoreView {
 	public static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	JDBCModeratoreController moderatoreController = new JDBCModeratoreController();
 
-	ArrayList<Utente> list = null;
+	ArrayList<Utente> userList = null;
+	ArrayList<Moderatore> modList = null;
 
 	public ModeratoreView() {
 	}
@@ -26,19 +27,33 @@ public class ModeratoreView {
 		String line = reader.readLine();
 
 		if (line.equals("1")) {
-			list = moderatoreController.showusers();
+			userList = moderatoreController.getUsers();
 			System.out.println("--Lista utenti--");
-			for (int i = 0; i < list.size(); i++) {
+			for (int i = 0; i < userList.size(); i++) {
 				int numero = i+1;
-				System.out.println("Utente " + numero + ": " + list.get(i).getUsername());
+				System.out.println("Utente " + numero + ": " + userList.get(i).getUsername());
 			}
 			System.out.println("\nQuale utente vuoi promuovere?");
 			String line1 = reader.readLine();
 			int app= Integer.parseInt(line1);
-            boolean flag = moderatoreController.promoteUser(list.get(app-1));
+            boolean flag = moderatoreController.promoteUser(userList.get(app-1));
             if(flag)
-            	System.out.println("ssssssss");
+            	System.out.println("Utente promosso");
+		} else if(line.equals("2")) {
+			modList = moderatoreController.getMods();
+			System.out.println("--Lista moderatori--");
+			for (int i = 0; i < modList.size(); i++) {
+				int numero = i+1;
+				System.out.println("Moderatore" + numero + ": " + modList.get(i).getUsername());
+			}
+			System.out.println("\nQuale moderatore vuoi retrocedere?");
+			String line1 = reader.readLine();
+			int app= Integer.parseInt(line1);
+            boolean flag = moderatoreController.demoteUser(modList.get(app-1));
+            if(flag)
+            	System.out.println("Moderatore retrocesso");
 		}
+			
 
 	}
 

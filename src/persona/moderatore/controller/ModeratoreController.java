@@ -28,7 +28,11 @@ public class ModeratoreController implements ModeratoreManager {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	public ArrayList<Utente> showusers() {
+	public ArrayList<Utente> getUsers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public ArrayList<Moderatore> getMods() {
 		// TODO Auto-generated method stub
 		return null;
 	}

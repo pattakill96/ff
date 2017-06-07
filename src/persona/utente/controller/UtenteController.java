@@ -1,5 +1,8 @@
 package persona.utente.controller;
 
+import java.util.ArrayList;
+
+import gioco.model.Gioco;
 import persona.utente.UtenteManager;
 import persona.utente.controller.JDBCUtenteController;
 import persona.utente.model.Utente;
@@ -35,6 +38,12 @@ public class UtenteController implements UtenteManager {
 	}
 
 	public void rating() {
+	}
+
+	@Override
+	public ArrayList<Gioco> getGames() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
