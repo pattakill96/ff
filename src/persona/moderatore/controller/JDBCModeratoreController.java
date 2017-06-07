@@ -79,10 +79,11 @@ public class JDBCModeratoreController implements ModeratoreManager {
 	public boolean deleteReview() {
 		return true;
 	}
+
 	@Override
-    public ArrayList<Utente> showusers(){
-    	ArrayList<Utente> lista = new ArrayList<Utente> ();
-    	Connection con = null;
+	public ArrayList<Utente> showusers() {
+		ArrayList<Utente> lista = new ArrayList<Utente>();
+		Connection con = null;
 		Statement st = null;
 		ResultSet rs = null;
 
@@ -91,7 +92,7 @@ public class JDBCModeratoreController implements ModeratoreManager {
 
 			st = con.createStatement();
 			rs = st.executeQuery("SELECT * " + "FROM utente ");
-			
+
 			while (rs.next()) {
 				String username = rs.getString("Username");
 				String email = rs.getString("Email");
@@ -102,8 +103,9 @@ public class JDBCModeratoreController implements ModeratoreManager {
 				int pe = rs.getInt("PE");
 
 				Utente utente = new Utente(username, email, password, nome, cognome, livello, pe);
-				lista.add(utente);}
-				
+				lista.add(utente);
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return lista;
@@ -128,10 +130,47 @@ public class JDBCModeratoreController implements ModeratoreManager {
 					/* Do Nothing */}
 			}
 		}
+
+		return lista;
+	}
+
+	public boolean promoteUser(Utente utente) {
+		Connection con = null;
+		Statement st = null;
+		PreparedStatement ps = null;
+
+		
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gamingplatform", "root", "");
+
+			String sql = ("DELETE " + "FROM utente " + "WHERE utente.Username='" + utente.getUsername() + "'");
 			
-    	return lista;
-    }
-	public boolean promoteUser(Utente user) {
+			ps = con.prepareStatement(sql);
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gamingplatform", "root", "");
+
+			String sql = "INSERT INTO moderatore(Username, Email, Password, Nome, Cognome)" + "VALUES(?, ?, ?, ?, ?)";
+
+			ps = con.prepareStatement(sql);
+			ps.setString(1, utente.getUsername());
+			ps.setString(2, utente.getEmail());
+			ps.setString(3, utente.getPassword());
+			ps.setString(4, utente.getNome());
+			ps.setString(5, utente.getCognome());
+			
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+
 		return true;
 	}
 

@@ -34,7 +34,10 @@ public class ModeratoreView {
 			}
 			System.out.println("\nQuale utente vuoi promuovere?");
 			String line1 = reader.readLine();
-
+			int app= Integer.parseInt(line1);
+            boolean flag = moderatoreController.promoteUser(list.get(app-1));
+            if(flag)
+            	System.out.println("ssssssss");
 		}
 
 	}

@@ -81,7 +81,7 @@ public class JDBCUtenteController implements UtenteManager {
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost/gamingplatform", "root", "");
 
-			String sql = "INSERT INTO utente(Username, Password, Email, Nome, Cognome)" + "VALUES(?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO utente(Username, Email, Password, Nome, Cognome)" + "VALUES(?, ?, ?, ?, ?)";
 
 			ps = con.prepareStatement(sql);
 			ps.setString(1, username);
