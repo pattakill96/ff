@@ -17,16 +17,18 @@ public class UtenteView {
 
 	}
 
-	public void show() throws IOException {
-		System.out.println("Visualizza profilo");
-		String moderator = reader.readLine();
-
-		System.out.println("Gioca");
-		String username = reader.readLine();
-
-		System.out.println("Valuta e/o recensisci un gioco");
-		String password = reader.readLine();
-		
+	public void show(Utente utente) throws IOException {
+		System.out.println("\n(1)Visualizza profilo\n(2)Gioca\n(3)Valuta e recensisci gioco\n");
+		String line = reader.readLine();
+		if(line.equals("1")){
+			System.out.println("Username:"+utente.getUsername()+"\n"
+					+ "Nome:"+utente.getNome()+"\n"
+					+"Cognome:"+utente.getCognome()+"\n"
+					+"Email:"+utente.getEmail()+"\n"
+					+"Livello:"+utente.getLivello()+"\n"
+					+"Punti Esperienza:"+utente.getPe()+"\n");
+		}
+		if(line.equals("2")){}
 		
 	}
 
