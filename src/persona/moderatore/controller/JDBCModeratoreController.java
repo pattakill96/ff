@@ -46,12 +46,12 @@ public class JDBCModeratoreController implements ModeratoreManager {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return new Moderatore();
+			return moderatore;
 		} finally {
 			if (rs != null) {
 				try {
 					rs.close();
-					return new Moderatore();
+					return moderatore;
 				} catch (SQLException e) {
 					/* Do Nothing */}
 			}
@@ -79,7 +79,58 @@ public class JDBCModeratoreController implements ModeratoreManager {
 	public boolean deleteReview() {
 		return true;
 	}
+	@Override
+    public ArrayList<Utente> showusers(){
+    	ArrayList<Utente> lista = new ArrayList<Utente> ();
+    	Connection con = null;
+		Statement st = null;
+		ResultSet rs = null;
 
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gamingplatform", "root", "");
+
+			st = con.createStatement();
+			rs = st.executeQuery("SELECT * " + "FROM utente ");
+
+			while (rs.next()) {
+				String username = rs.getString("Username");
+				String email = rs.getString("Email");
+				String password = rs.getString("Password");
+				String nome = rs.getString("Nome");
+				String cognome = rs.getString("Cognome");
+				int livello = rs.getInt("Livello");
+				int pe = rs.getInt("PE");
+
+				Utente utente = new Utente(username, email, password, nome, cognome, livello, pe);
+				lista.add(utente);}
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return lista;
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+					return lista;
+				} catch (SQLException e) {
+					/* Do Nothing */}
+			}
+			if (st != null) {
+				try {
+					st.close();
+				} catch (SQLException e) {
+					/* Do Nothing */}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					/* Do Nothing */}
+			}
+		}
+			
+    	return lista;
+    }
 	public boolean promoteUser(Utente user) {
 		return true;
 	}

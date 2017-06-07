@@ -1,5 +1,7 @@
 package persona.moderatore.model;
 
+import java.util.ArrayList;
+
 public class Moderatore {
 
 	private String username;
@@ -7,10 +9,6 @@ public class Moderatore {
 	private String cognome;
 	private String email;
 	private String password;
-
-	public Moderatore() {
-		this.username = "";
-	}
 
 	public Moderatore(String username, String nome, String cognome, String email, String password) {
 		this.username = username;
