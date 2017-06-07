@@ -25,6 +25,8 @@ public class GamingPlatform {
 		// Instantiating user and moderator controllers
 	    
 		Console cnsl = null;
+		Utente utente = null;
+		Moderatore moderatore = null;
 		// UtenteController utenteController = new UtenteController();
 		JDBCUtenteController utenteController = new JDBCUtenteController();
 		// ModeratoreController moderatoreController = new ModeratoreController();
@@ -34,31 +36,33 @@ public class GamingPlatform {
 		String line = reader.readLine();
 
 		if (line.equals("1")) {
-			System.out.println("Sei un moderatore? y/n");
-			String moderator = reader.readLine();
-
-			System.out.println("Inserisci l'username");
-			String username = reader.readLine();
-
-			System.out.println("Inserisci la password");
-			String password = reader.readLine();
-
-			if (moderator.equals("n")) {
-				Utente utente = utenteController.login(username, password);
-				if (utente == null) {
-					System.out.println("Utente non trovato");
+			while(utente == null || moderatore == null) {
+				System.out.println("Sei un moderatore? y/n");
+				String moderator = reader.readLine();
+	
+				System.out.println("Inserisci l'username");
+				String username = reader.readLine();
+	
+				System.out.println("Inserisci la password");
+				String password = reader.readLine();
+	
+				if (moderator.equals("n")) {
+					utente = utenteController.login(username, password);
+					if (utente == null) {
+						System.out.println("Utente non trovato\n");
+					} else {
+						UtenteView utenteview = new UtenteView();
+						utenteview.show(utente);
+					}
 				} else {
-					UtenteView utenteview = new UtenteView();
-					utenteview.show();
-				}
-			} else {
-				Moderatore moderatore = moderatoreController.login(username, password);
-				if (moderatore.getUsername().equals("")) {
-					System.out.println("Moderatore non trovato");
-				} else {
-					ModeratoreView moderatoreview = new ModeratoreView();
-					moderatoreview.show();
-				}
+					moderatore = moderatoreController.login(username, password);
+					if (moderatore == null) {
+						System.out.println("Moderatore non trovato\n");
+					} else {
+						ModeratoreView moderatoreview = new ModeratoreView();
+						moderatoreview.show();
+					}
+				}	
 			}
 
 		} else if (line.equals("2")) {
@@ -84,12 +88,12 @@ public class GamingPlatform {
 			System.out.println("Inserisci il tuo cognome");
 			String cognome = reader.readLine();
 			
-			Utente utente = utenteController.signup(username, email, password, nome, cognome);
+			utente = utenteController.signup(username, email, password, nome, cognome);
 			if (utente == null) {
 				System.out.println("Problemi nella registrazione");
 			} else {
 				UtenteView utenteview = new UtenteView();
-				utenteview.show();
+				utenteview.show(utente);
 			}
 
 		} else if (line.equals("3")) {
