@@ -17,19 +17,24 @@ public class ModeratoreView {
 	JDBCModeratoreController moderatoreController = new JDBCModeratoreController();
 
 	ArrayList<Utente> list = null;
+
 	public ModeratoreView() {
 	}
 
 	public void show() throws IOException {
 		System.out.println("\n(1)Promuovi utente\n(2)Retrocedi utente\n(3)Gestisci recensioni\n");
 		String line = reader.readLine();
-		if(line.equals("1")){
-		list = moderatoreController.showusers();
-		for (int i=0; i<list.size(); i++)
-			System.out.println("Utente "+ i+": "+list.get(i).getUsername());
+
+		if (line.equals("1")) {
+			list = moderatoreController.showusers();
+			System.out.println("--Lista utenti--");
+			for (int i = 0; i < list.size(); i++) {
+				int numero = i+1;
+				System.out.println("Utente " + numero + ": " + list.get(i).getUsername());
+			}
 			System.out.println("\nQuale utente vuoi promuovere?");
 			String line1 = reader.readLine();
-		    
+
 		}
 
 	}

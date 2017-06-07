@@ -91,7 +91,7 @@ public class JDBCModeratoreController implements ModeratoreManager {
 
 			st = con.createStatement();
 			rs = st.executeQuery("SELECT * " + "FROM utente ");
-
+			
 			while (rs.next()) {
 				String username = rs.getString("Username");
 				String email = rs.getString("Email");

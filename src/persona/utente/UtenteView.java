@@ -20,6 +20,7 @@ public class UtenteView {
 	public void show(Utente utente) throws IOException {
 		System.out.println("\n(1)Visualizza profilo\n(2)Gioca\n(3)Valuta e recensisci gioco\n");
 		String line = reader.readLine();
+		
 		if(line.equals("1")){
 			System.out.println("Username:"+utente.getUsername()+"\n"
 					+ "Nome:"+utente.getNome()+"\n"
