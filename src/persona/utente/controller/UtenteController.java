@@ -10,7 +10,7 @@ public class UtenteController implements UtenteManager {
 		JDBCUtenteController jdbcUtente = new JDBCUtenteController();
 	}
 
-	public Utente login(String email, String password) {
+	public Utente login(String username, String password) {
 		return null;
 	}
 

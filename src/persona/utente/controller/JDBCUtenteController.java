@@ -113,8 +113,9 @@ public class JDBCUtenteController implements UtenteManager {
 		}
 		return new Utente(username, email, password, nome, cognome, 0, 0);
 	}
-
+    @Override
 	public void play() {
+    	
 	}
 
 	public void getReview() {
