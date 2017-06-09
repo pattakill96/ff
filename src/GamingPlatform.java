@@ -43,9 +43,16 @@ public class GamingPlatform {
 				System.out.println("Inserisci l'username");
 				String username = reader.readLine();
 	
-				System.out.println("Inserisci la password");
-				String password = reader.readLine();
-	
+				String password = "";
+				
+				try {
+					cnsl = System.console();
+					password = cnsl.readPassword("Inserisci la password per il tuo account: ").toString();
+				} catch(Exception ex) {
+					System.out.println("Inserisci la password per il tuo account");
+					password = reader.readLine();
+				}
+				
 				if (moderator.equals("n")) {
 					utente = utenteController.login(username, password);
 					if (utente == null) {

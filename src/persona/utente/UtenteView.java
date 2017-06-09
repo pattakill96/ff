@@ -41,9 +41,9 @@ public class UtenteView {
 			for (int i = 0; i < giocoList.size(); i++) {
 				int numero = i+1;
 				System.out.println("Gioco" + numero + ": " + giocoList.get(i).getNome());
-				System.out.println("A quale gioco gioco vuoi giocare ?");
-				String line1 = reader.readLine();
 			}
+			System.out.println("A quale gioco vuoi giocare ?");
+			String line1 = reader.readLine();
 	
 		}
 		

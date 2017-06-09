@@ -10,7 +10,7 @@ public class Moderatore {
 	private String email;
 	private String password;
 
-	public Moderatore(String username, String nome, String cognome, String email, String password) {
+	public Moderatore(String username, String email, String password, String nome, String cognome) {
 		this.username = username;
 		this.nome = nome;
 		this.cognome = cognome;

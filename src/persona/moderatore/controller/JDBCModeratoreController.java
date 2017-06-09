@@ -192,7 +192,7 @@ public class JDBCModeratoreController implements ModeratoreManager {
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gamingplatform", "root", "");
 
-			String sql = ("DELETE " + "FROM utente " + "WHERE utente.Username='" + utente.getUsername() + "'");
+			String sql = ("DELETE FROM utente WHERE utente.Username='" + utente.getUsername() + "'");
 			
 			ps = con.prepareStatement(sql);
 			ps.executeUpdate();
@@ -230,7 +230,7 @@ public class JDBCModeratoreController implements ModeratoreManager {
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gamingplatform", "root", "");
 
-			String sql = ("DELETE " + "FROM moderatore " + "WHERE moderatore.Username='" + moderatore.getUsername() + "'");
+			String sql = ("DELETE FROM moderatore WHERE moderatore.Username='" + moderatore.getUsername() + "'");
 						
 			ps = con.prepareStatement(sql);
 			ps.executeUpdate();
