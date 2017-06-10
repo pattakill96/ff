@@ -1,6 +1,7 @@
 package persona.moderatore;
 
 import persona.moderatore.model.Moderatore;
+import persona.utente.controller.JDBCUtenteController;
 import persona.utente.model.Utente;
 import persona.moderatore.controller.JDBCModeratoreController;
 
@@ -15,6 +16,7 @@ public class ModeratoreView {
 
 	public static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	JDBCModeratoreController moderatoreController = new JDBCModeratoreController();
+	JDBCUtenteController utenteController = new JDBCUtenteController();
 
 	ArrayList<Utente> userList = null;
 	ArrayList<Moderatore> modList = null;
@@ -27,7 +29,7 @@ public class ModeratoreView {
 		String line = reader.readLine();
 
 		if (line.equals("1")) {
-			userList = moderatoreController.getUsers();
+			userList = utenteController.getUsers();
 			System.out.println("--Lista utenti--");
 			for (int i = 0; i < userList.size(); i++) {
 				int numero = i+1;

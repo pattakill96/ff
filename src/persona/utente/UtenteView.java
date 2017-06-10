@@ -16,7 +16,7 @@ import java.util.List;
 public class UtenteView {
 
 	public static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-	JDBCUtenteController utenteController = new JDBCUtenteController();
+	JDBCGiocoController giocoController = new JDBCGiocoController();
 
 	ArrayList<Gioco> giocoList = null;
 	
@@ -36,7 +36,7 @@ public class UtenteView {
 					+"Livello:"+utente.getLivello()+"\n"
 					+"Punti Esperienza:"+utente.getPe()+"\n");
 		} else if(line.equals("2")) {
-			giocoList = utenteController.getGames();
+			giocoList = giocoController.getGames();
 			System.out.println("--Lista giochi--");
 			for (int i = 0; i < giocoList.size(); i++) {
 				int numero = i+1;

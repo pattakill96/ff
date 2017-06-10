@@ -12,7 +12,6 @@ public interface ModeratoreManager {
 
 	public boolean deleteReview(); // TODO model di recensioni
 	
-	public ArrayList<Utente> getUsers();
 
 	public ArrayList<Moderatore> getMods();
 	

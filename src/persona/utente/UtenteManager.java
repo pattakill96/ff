@@ -14,7 +14,7 @@ public interface UtenteManager {
 	
 	public void getReview(); 
 	
-	public ArrayList<Gioco> getGames();
+	public ArrayList<Utente> getUsers();
 	
 	public boolean setReview(String idG, String recensione);
 	

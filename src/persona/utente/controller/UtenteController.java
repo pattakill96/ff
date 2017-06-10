@@ -26,6 +26,11 @@ public class UtenteController implements UtenteManager {
 
 	public void getReview() {
 	}
+	
+	public ArrayList<Utente> getUsers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	public boolean setReview(String idG, String recensione) {
 		// aggiorno la recensione nel database
@@ -38,12 +43,6 @@ public class UtenteController implements UtenteManager {
 	}
 
 	public void rating() {
-	}
-
-	@Override
-	public ArrayList<Gioco> getGames() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
