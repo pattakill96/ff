@@ -5,13 +5,16 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Date;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
 
 import gioco.model.Gioco;
 import persona.utente.UtenteManager;
 import persona.utente.model.Utente;
+import recensione.model.Recensione;
 
 public class JDBCUtenteController implements UtenteManager {
 
@@ -224,14 +227,46 @@ public class JDBCUtenteController implements UtenteManager {
 		return lista;
 	}
 
-	public boolean setReview(String idG, String recensione) {
-		// aggiorno la recensione nel database
+	public boolean setReview(Recensione recensione) {
+		Connection con = null;
+		PreparedStatement ps = null;
+
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost/gamingplatform", "root", "");
+
+			String sql = "INSERT INTO recensione(Utente, Gioco, Descrizione,DataPubblicazione,Stato)" + "VALUES(?, ?, ?, ?, 0)";
+
+			ps = con.prepareStatement(sql);
+			ps.setString(1, recensione.getUtente());
+			ps.setString(2, recensione.getGioco());
+			ps.setString(3, recensione.getDescrizione());
+			ps.setString(4, recensione.getData());
+
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					return false;
+					/* Do Nothing */}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					return false;
+					/* Do Nothing */}
+			}
+		}
+		
 		return true;
 	}
 
-	public boolean setRating(int punteggio) {
-		return true;
-	}
 
 	public void rating() {
 	}

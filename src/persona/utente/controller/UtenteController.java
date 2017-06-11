@@ -6,6 +6,7 @@ import gioco.model.Gioco;
 import persona.utente.UtenteManager;
 import persona.utente.controller.JDBCUtenteController;
 import persona.utente.model.Utente;
+import recensione.model.Recensione;
 
 public class UtenteController implements UtenteManager {
 
@@ -32,14 +33,9 @@ public class UtenteController implements UtenteManager {
 		return null;
 	}
 
-	public boolean setReview(String idG, String recensione) {
+	public boolean setReview(Recensione recensione) {
 		// aggiorno la recensione nel database
 		return true;
-	}
-
-	public boolean setRating(int punteggio) {
-		return true;
-
 	}
 
 	public void rating() {

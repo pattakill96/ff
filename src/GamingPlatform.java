@@ -67,7 +67,7 @@ public class GamingPlatform {
 						System.out.println("Moderatore non trovato\n");
 					} else {
 						ModeratoreView moderatoreview = new ModeratoreView();
-						moderatoreview.show();
+						moderatoreview.show(moderatore);
 					}
 				}	
 			}

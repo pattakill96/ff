@@ -2,6 +2,8 @@ package persona.moderatore;
 
 import persona.moderatore.model.Moderatore;
 import persona.utente.controller.JDBCUtenteController;
+import recensione.model.*;
+import recensione.controller.*;
 import persona.utente.model.Utente;
 import persona.moderatore.controller.JDBCModeratoreController;
 
@@ -17,14 +19,18 @@ public class ModeratoreView {
 	public static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	JDBCModeratoreController moderatoreController = new JDBCModeratoreController();
 	JDBCUtenteController utenteController = new JDBCUtenteController();
+	JDBCRecensioneController recensioneController = new JDBCRecensioneController();
+	
 
 	ArrayList<Utente> userList = null;
 	ArrayList<Moderatore> modList = null;
+	ArrayList<Recensione> recList = null;
 
 	public ModeratoreView() {
 	}
 
-	public void show() throws IOException {
+	public void show(Moderatore moderatore) throws IOException {
+		System.out.println("Pagina del moderatore :"+moderatore.getUsername());
 		System.out.println("\n(1)Promuovi utente\n(2)Retrocedi utente\n(3)Gestisci recensioni\n");
 		String line = reader.readLine();
 
@@ -54,6 +60,34 @@ public class ModeratoreView {
             boolean flag = moderatoreController.demoteUser(modList.get(app-1));
             if(flag)
             	System.out.println("Moderatore retrocesso");
+		} else if(line.equals("3")) {
+			recList = recensioneController.getAllRec();
+			if(recList.size()==0){
+			System.out.println("Nennuna recensione in attesa di moderazione\n");
+			ModeratoreView moderatoreview = new ModeratoreView();
+			moderatoreview.show(moderatore);
+			}
+			System.out.println("--Lista recensioni--");
+			for (int i = 0; i < recList.size(); i++) {
+				int numero = i+1;
+				System.out.println("Recensone" + numero + ": " + recList.get(i).getVoto()+"--"+recList.get(i).getDescrizione()+"["+recList.get(i).getUtente()+"];\n");
+			}
+			System.out.println("\nQuale recensione vuoi approvare/respingere?");
+			String line1 = reader.readLine();
+			int app= Integer.parseInt(line1);
+			System.out.println("\nVuoi approvare o respingere questa recensione?(1/0)");
+			String line3 = reader.readLine();
+			int app1= Integer.parseInt(line3);
+			if(app1==1){
+			boolean flag = moderatoreController.acceptReview(recList.get(app-1),moderatore);
+            if(flag)
+            	System.out.println("Recensione approvata");}
+			else{
+			boolean flag = moderatoreController.deleteReview(recList.get(app-1),null);
+			 if(flag)
+	            	System.out.println("Recensione eliminata");
+			}
+			
 		}
 			
 

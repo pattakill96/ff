@@ -14,6 +14,7 @@ import persona.moderatore.model.Moderatore;
 
 import persona.utente.UtenteManager;
 import persona.utente.model.Utente;
+import recensione.model.Recensione;
 
 public class JDBCModeratoreController implements ModeratoreManager {
 
@@ -72,11 +73,78 @@ public class JDBCModeratoreController implements ModeratoreManager {
 		return moderatore;
 	}
 
-	public boolean acceptReview() {
+	public boolean acceptReview(Recensione recensione, Moderatore moderatore) {
+		Connection con = null;
+		PreparedStatement ps = null;
+
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost/gamingplatform", "root", "");
+
+			String sql = "UPDATE recensione SET Stato=(?), Moderatoda=(?)" +"WHERE recensione.Gioco='" + recensione.getGioco()+ "'  AND recensione.Utente='" + recensione.getUtente() + "'";
+
+			ps = con.prepareStatement(sql);
+			ps.setString(1, "1");
+			ps.setString(2, moderatore.getUsername());
+			
+			
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					return false;
+					/* Do Nothing */}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					return false;
+					/* Do Nothing */}
+			}
+		}
+		
 		return true;
 	}
 
-	public boolean deleteReview() {
+	public boolean deleteReview(Recensione recensione,Moderatore moderatore) {
+		Connection con = null;
+		PreparedStatement ps = null;
+
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost/gamingplatform", "root", "");
+
+			String sql = "DELETE FROM recensione WHERE recensione.Gioco='" + recensione.getGioco()+ "'  AND recensione.Utente='" + recensione.getUtente() + "'";
+
+			ps = con.prepareStatement(sql);
+			
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					return false;
+					/* Do Nothing */}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					return false;
+					/* Do Nothing */}
+			}
+		}
+		
 		return true;
 	}
 

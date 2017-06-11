@@ -6,6 +6,7 @@ import persona.moderatore.ModeratoreManager;
 import persona.moderatore.controller.JDBCModeratoreController;
 import persona.moderatore.model.Moderatore;
 import persona.utente.model.Utente;
+import recensione.model.*;
 
 public class ModeratoreController implements ModeratoreManager {
 
@@ -18,13 +19,13 @@ public class ModeratoreController implements ModeratoreManager {
 	}
 
 
-	public boolean acceptReview() {
+	public boolean acceptReview(Recensione recensione,Moderatore moderatore) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	
-	public boolean deleteReview() {
+	public boolean deleteReview(Recensione recensione,Moderatore moderatore) {
 		// TODO Auto-generated method stub
 		return false;
 	}
