@@ -35,8 +35,9 @@ public class JDBCGiocoController implements GiocoManager {
 
 				while (rs.next()) {
 					String nome = rs.getString("Nome");
+					String descrizione = rs.getString("Descrizione");
 
-					Gioco gioco = new Gioco(nome);
+					Gioco gioco = new Gioco(nome,descrizione);
 					lista.add(gioco);
 				}
 

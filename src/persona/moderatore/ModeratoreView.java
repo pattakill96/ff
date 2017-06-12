@@ -63,14 +63,14 @@ public class ModeratoreView {
 		} else if(line.equals("3")) {
 			recList = recensioneController.getAllRec();
 			if(recList.size()==0){
-			System.out.println("Nennuna recensione in attesa di moderazione\n");
+			System.out.println("Nessuna recensione in attesa di moderazione\n");
 			ModeratoreView moderatoreview = new ModeratoreView();
 			moderatoreview.show(moderatore);
 			}
 			System.out.println("--Lista recensioni--");
 			for (int i = 0; i < recList.size(); i++) {
 				int numero = i+1;
-				System.out.println("Recensone" + numero + ": " + recList.get(i).getVoto()+"--"+recList.get(i).getDescrizione()+"["+recList.get(i).getUtente()+"];\n");
+				System.out.println("Recensone" + numero + ": "+recList.get(i).getGioco()+"/" + recList.get(i).getVoto()+"--"+recList.get(i).getDescrizione()+"["+recList.get(i).getUtente()+"];\n");
 			}
 			System.out.println("\nQuale recensione vuoi approvare/respingere?");
 			String line1 = reader.readLine();
@@ -87,6 +87,8 @@ public class ModeratoreView {
 			 if(flag)
 	            	System.out.println("Recensione eliminata");
 			}
+			
+		}else if(line.equals("4")){
 			
 		}
 			

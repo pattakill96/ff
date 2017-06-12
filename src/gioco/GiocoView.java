@@ -1,22 +1,59 @@
 package gioco;
 
 import persona.utente.model.Utente;
+import recensione.controller.JDBCRecensioneController;
+import recensione.model.Recensione;
+import persona.moderatore.ModeratoreView;
+import persona.utente.UtenteView;
 import persona.utente.controller.JDBCUtenteController;
 import gioco.controller.JDBCGiocoController;
+import gioco.model.Gioco;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
+import gioco.GiocoManager;
 public class GiocoView {
 
 	public static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
+	JDBCUtenteController utentecontroller= new JDBCUtenteController();
+	JDBCRecensioneController recensioneController = new JDBCRecensioneController();
+	
+	ArrayList<Recensione> recList = null;
 	public GiocoView() {
-
+		
 	}
-
-
+		public void show(Utente utente, Gioco gioco) throws IOException {
+		System.out.println(gioco.getNome()+" "+gioco.getDescrizione());
+		System.out.println("\n(1)Gioca\n(2)Visualizza Recensione\n");
+		String line =reader.readLine();
+		if(line.equals("1")){
+		boolean flag=utentecontroller.play(utente,gioco);
+		if(flag){
+			System.out.println("Complimenti!!Bella partita\nAdesso tornerai sulla tua pagina profilo!");
+			UtenteView utenteview = new UtenteView();
+			utenteview.show(utente);
+			}
+		}else if(line.equals("2")){
+			recList = recensioneController.getRec(gioco);
+			if(recList.size()==0){
+			System.out.println("Non è presente nessuna recensione di questo gioco!\n");
+			UtenteView utenteView = new UtenteView();
+			utenteView.show(utente);
+			}
+			System.out.println("--Lista recensioni--");
+			for (int i = 0; i < recList.size(); i++) {
+				int numero = i+1;
+				System.out.println("Recensone" + numero + ": " + recList.get(i).getVoto()+"--"+recList.get(i).getDescrizione()+"--[Utente:"+recList.get(i).getUtente()+"]"+"(Data :"+recList.get(i).getData()+")"+";\n");
+			}
+			UtenteView utenteView = new UtenteView();
+			utenteView.show(utente);	
+		}
+	}
+			
 }
+
+

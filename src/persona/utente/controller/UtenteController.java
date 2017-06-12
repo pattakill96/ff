@@ -1,6 +1,7 @@
 package persona.utente.controller;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import gioco.model.Gioco;
 import persona.utente.UtenteManager;
@@ -22,7 +23,8 @@ public class UtenteController implements UtenteManager {
 		return null;
 	}
 
-	public void play() {
+	public boolean play(Utente utente,Gioco gioco) {
+		return true;
 	}
 
 	public void getReview() {
@@ -38,7 +40,8 @@ public class UtenteController implements UtenteManager {
 		return true;
 	}
 
-	public void rating() {
+	public ArrayList<Level> leveling(Utente utente) {
+		return null;
 	}
 
 }

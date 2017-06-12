@@ -4,6 +4,8 @@ import persona.utente.model.Utente;
 import recensione.model.Recensione;
 
 import java.util.*;
+import java.util.logging.Level;
+
 import gioco.model.*;
 
 public interface UtenteManager {
@@ -12,7 +14,7 @@ public interface UtenteManager {
 	
 	public Utente signup(String username, String email, String password, String nome, String cognome);
 	
-	public void play();
+	public boolean play(Utente utente,Gioco gioco);
 	
 	public void getReview(); 
 	
@@ -21,6 +23,6 @@ public interface UtenteManager {
 	public boolean setReview(Recensione recensione);
 	
 
-	public void rating();
+	public ArrayList<Level> leveling(Utente utente);
 
 }

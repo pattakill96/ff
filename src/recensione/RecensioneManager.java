@@ -9,6 +9,6 @@ public interface RecensioneManager {
 
 	public ArrayList<Recensione> getAllRec();
 	
-	public ArrayList<Recensione> getRec();
+	public ArrayList<Recensione> getRec(Gioco gioco);
 
 }
