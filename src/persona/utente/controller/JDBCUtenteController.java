@@ -359,55 +359,55 @@ public class JDBCUtenteController implements UtenteManager {
 
 
 	public void leveling(Utente utente) {
-		ArrayList<Level> lista = new ArrayList<Level>();
-		Connection con = null;
-		Statement st = null;
-		ResultSet rs = null;
-
-		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gamingplatform", "root", "");
-
-			st = con.createStatement();
-			rs = st.executeQuery("SELECT premio.Codice premio.Livello trofeo.Nome " + "FROM premio INNER JOIN trofeo ON premio.Livello=trofeo.Livello WHERE premio.Utente='"+utente.getUsername()+"' ");
-
-			while (rs.next()) {
-				String codice = rs.getString("Codice");
-				int livello = rs.getInt("Livello");
-				String nome = rs.getString("Nome");
-				
-
-				Level level = new Level(codice,livello,nome);
-				lista.add(level);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return lista;
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-					return lista;
-				} catch (SQLException e) {
-					/* Do Nothing */}
-			}
-			if (st != null) {
-				try {
-					st.close();
-				} catch (SQLException e) {
-					/* Do Nothing */}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-					/* Do Nothing */}
-			}
-		}
-
-		return lista;
-	
-	return null;
+//		ArrayList<Level> lista = new ArrayList<Level>();
+//		Connection con = null;
+//		Statement st = null;
+//		ResultSet rs = null;
+//
+//		try {
+//			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gamingplatform", "root", "");
+//
+//			st = con.createStatement();
+//			rs = st.executeQuery("SELECT premio.Codice premio.Livello trofeo.Nome " + "FROM premio INNER JOIN trofeo ON premio.Livello=trofeo.Livello WHERE premio.Utente='"+utente.getUsername()+"' ");
+//
+//			while (rs.next()) {
+//				String codice = rs.getString("Codice");
+//				int livello = rs.getInt("Livello");
+//				String nome = rs.getString("Nome");
+//				
+//
+//				Level level = new Level(codice,livello,nome);
+//				lista.add(level);
+//			}
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			return lista;
+//		} finally {
+//			if (rs != null) {
+//				try {
+//					rs.close();
+//					return lista;
+//				} catch (SQLException e) {
+//					/* Do Nothing */}
+//			}
+//			if (st != null) {
+//				try {
+//					st.close();
+//				} catch (SQLException e) {
+//					/* Do Nothing */}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (SQLException e) {
+//					/* Do Nothing */}
+//			}
+//		}
+//
+//		return lista;
+//	
+//	return null;
 	}
 
 }
