@@ -23,6 +23,6 @@ public interface UtenteManager {
 	public boolean setReview(Recensione recensione);
 	
 
-	public void leveling(Utente utente);
+	public ArrayList<String[]> leveling(Utente utente);
 
 }

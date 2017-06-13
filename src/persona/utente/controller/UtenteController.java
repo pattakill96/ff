@@ -40,8 +40,8 @@ public class UtenteController implements UtenteManager {
 		return true;
 	}
 
-	public void leveling(Utente utente) {
-
+	public ArrayList<String[]> leveling(Utente utente) {
+		return null;
 	}
 
 }

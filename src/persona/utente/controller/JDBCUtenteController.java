@@ -17,6 +17,7 @@ import gioco.model.Gioco;
 import persona.utente.UtenteManager;
 import persona.utente.model.Utente;
 import recensione.model.Recensione;
+
 public class JDBCUtenteController implements UtenteManager {
 
 	public JDBCUtenteController() {
@@ -118,9 +119,10 @@ public class JDBCUtenteController implements UtenteManager {
 		}
 		return new Utente(username, email, password, nome, cognome, 0, 0);
 	}
-    @Override
+
+	@Override
 	public boolean play(Utente utente, Gioco gioco) {
-    	Connection con = null;
+		Connection con = null;
 		PreparedStatement ps = null;
 
 		try {
@@ -130,12 +132,12 @@ public class JDBCUtenteController implements UtenteManager {
 
 			ps = con.prepareStatement(sql);
 			LocalDateTime data = LocalDateTime.now();
-			String cod=data.getYear()+"-"+data.getMonthValue()+"-"+data.getDayOfMonth()+"-"+data.getHour()+"."+data.getMinute()+"."+data.getSecond();
+			String cod = data.getYear() + "-" + data.getMonthValue() + "-" + data.getDayOfMonth() + "-" + data.getHour()
+					+ "." + data.getMinute() + "." + data.getSecond();
 			ps.setString(1, cod);
 			ps.setString(2, utente.getUsername());
 			ps.setString(3, gioco.getNome());
 			ps.setInt(4, 1);
-		
 
 			ps.executeUpdate();
 
@@ -158,19 +160,20 @@ public class JDBCUtenteController implements UtenteManager {
 					/* Do Nothing */}
 			}
 		}
-		
+
 		con = null;
 		ps = null;
 
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost/gamingplatform", "root", "");
 
-			String sql = "UPDATE utente SET PE=(?) WHERE utente.Username='"+utente.getUsername()+"' ";
+			String sql = "UPDATE utente SET PE=(?) WHERE utente.Username='" + utente.getUsername() + "' ";
 
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, utente.getPe()+100);
+			ps.setInt(1, utente.getPe() + 100);
 			ps.executeUpdate();
 
+			utente.setPe(utente.getPe() + 100);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -190,16 +193,17 @@ public class JDBCUtenteController implements UtenteManager {
 					/* Do Nothing */}
 			}
 		}
-		if(utente.getPe()/1000!=utente.getLivello()){
+		if (utente.getPe() / 1000 != utente.getLivello()) {
 			try {
 				con = DriverManager.getConnection("jdbc:mysql://localhost/gamingplatform", "root", "");
 
-				String sql = "UPDATE utente SET Livello=(?) WHERE utente.Username='"+utente.getUsername()+"' ";
+				String sql = "UPDATE utente SET Livello=(?) WHERE utente.Username='" + utente.getUsername() + "' ";
 
 				ps = con.prepareStatement(sql);
-				ps.setInt(1, utente.getPe()/1000);
+				ps.setInt(1, utente.getPe() / 1000);
 				ps.executeUpdate();
 
+				utente.setLivello(utente.getPe() / 1000);
 			} catch (SQLException e) {
 				e.printStackTrace();
 				return false;
@@ -224,10 +228,11 @@ public class JDBCUtenteController implements UtenteManager {
 
 				String sql = "INSERT INTO premio(Codice,Livello,Utente) VALUES(?,?,?)";
 				ps = con.prepareStatement(sql);
-				LocalDate d1= LocalDate.now();
-				String data=d1.getYear()+"-"+d1.getMonthValue()+"-"+d1.getDayOfMonth();
+				LocalDateTime d1 = LocalDateTime.now();
+				String data = d1.getYear() + "-" + d1.getMonthValue() + "-" + d1.getDayOfMonth() + ":" + d1.getHour()
+						+ ":" + d1.getMinute() + ":" + d1.getSecond();
 				ps.setString(1, data);
-				ps.setInt(2, utente.getPe()/1000);
+				ps.setInt(2, utente.getPe() / 1000);
 				ps.setString(3, utente.getUsername());
 				ps.executeUpdate();
 
@@ -250,20 +255,17 @@ public class JDBCUtenteController implements UtenteManager {
 						/* Do Nothing */}
 				}
 			}
-			
+
 		}
-			
-    	return true;
-    	
-    	
+
+		return true;
 	}
 
 	public void getReview() {
 	}
-	
 
-	@Override 
-		public ArrayList<Utente> getUsers() {
+	@Override
+	public ArrayList<Utente> getUsers() {
 		ArrayList<Utente> lista = new ArrayList<Utente>();
 		Connection con = null;
 		Statement st = null;
@@ -323,7 +325,8 @@ public class JDBCUtenteController implements UtenteManager {
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost/gamingplatform", "root", "");
 
-			String sql = "INSERT INTO recensione(Utente, Gioco, Voto, Descrizione,DataPubblicazione,Stato)" + "VALUES(?, ?, ?, ?, ?,0)";
+			String sql = "INSERT INTO recensione(Utente, Gioco, Voto, Descrizione,DataPubblicazione,Stato)"
+					+ "VALUES(?, ?, ?, ?, ?,0)";
 
 			ps = con.prepareStatement(sql);
 			ps.setString(1, recensione.getUtente());
@@ -331,7 +334,7 @@ public class JDBCUtenteController implements UtenteManager {
 			ps.setInt(3, recensione.getVoto());
 			ps.setString(4, recensione.getDescrizione());
 			ps.setString(5, recensione.getData());
-			
+
 			ps.executeUpdate();
 
 		} catch (SQLException e) {
@@ -353,61 +356,61 @@ public class JDBCUtenteController implements UtenteManager {
 					/* Do Nothing */}
 			}
 		}
-		
+
 		return true;
 	}
 
+	public ArrayList<String[]> leveling(Utente utente) {
+		ArrayList<String[]> lista = new ArrayList<String[]>();
+		String[] listatrofeo = new String[3];
+		Connection con = null;
+		Statement st = null;
+		ResultSet rs = null;
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gamingplatform", "root", "");
 
-	public void leveling(Utente utente) {
-//		ArrayList<Level> lista = new ArrayList<Level>();
-//		Connection con = null;
-//		Statement st = null;
-//		ResultSet rs = null;
-//
-//		try {
-//			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gamingplatform", "root", "");
-//
-//			st = con.createStatement();
-//			rs = st.executeQuery("SELECT premio.Codice premio.Livello trofeo.Nome " + "FROM premio INNER JOIN trofeo ON premio.Livello=trofeo.Livello WHERE premio.Utente='"+utente.getUsername()+"' ");
-//
-//			while (rs.next()) {
-//				String codice = rs.getString("Codice");
-//				int livello = rs.getInt("Livello");
-//				String nome = rs.getString("Nome");
-//				
-//
-//				Level level = new Level(codice,livello,nome);
-//				lista.add(level);
-//			}
-//
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//			return lista;
-//		} finally {
-//			if (rs != null) {
-//				try {
-//					rs.close();
-//					return lista;
-//				} catch (SQLException e) {
-//					/* Do Nothing */}
-//			}
-//			if (st != null) {
-//				try {
-//					st.close();
-//				} catch (SQLException e) {
-//					/* Do Nothing */}
-//			}
-//			if (con != null) {
-//				try {
-//					con.close();
-//				} catch (SQLException e) {
-//					/* Do Nothing */}
-//			}
-//		}
-//
-//		return lista;
-//	
-//	return null;
+			st = con.createStatement();
+			rs = st.executeQuery(
+					"SELECT premio.Codice , premio.Livello , trofeo.Nome FROM premio INNER JOIN trofeo ON premio.Livello=trofeo.Livello WHERE premio.Utente='"
+							+ utente.getUsername() + "'ORDER BY premio.Codice ");
+			while (rs.next()) {
+				String codice = rs.getString("Codice");
+				int livello = rs.getInt("Livello");
+				String nome = rs.getString("Nome");
+				String[] splitted = codice.split(":");
+				listatrofeo[0] = splitted[0];
+				listatrofeo[1] = Integer.toString(livello);
+				listatrofeo[2] = nome;
+				lista.add(listatrofeo);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return lista;
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+					return lista;
+				} catch (SQLException e) {
+					/* Do Nothing */}
+			}
+			if (st != null) {
+				try {
+					st.close();
+				} catch (SQLException e) {
+					/* Do Nothing */}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					/* Do Nothing */}
+			}
+		}
+
+		return lista;
+
 	}
 
 }
