@@ -1,0 +1,13 @@
+
+gioco
+gioco.controller
+gioco.model
+persona.moderatore
+persona.moderatore.controller
+persona.moderatore.model
+persona.utente
+persona.utente.controller
+persona.utente.model
+recensione
+recensione.controller
+recensione.model

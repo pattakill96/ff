@@ -16,11 +16,21 @@ import recensione.RecensioneManager;
 import gioco.GiocoManager;
 import gioco.model.Gioco;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class JDBCRecensioneController.
+ */
 public class JDBCRecensioneController implements RecensioneManager {
 
+	/**
+	 * Instantiates a new JDBC recensione controller.
+	 */
 	public JDBCRecensioneController() {
 	}
 
+	/* (non-Javadoc)
+	 * @see recensione.RecensioneManager#getAllRec()
+	 */
 	@Override
 	
 		public ArrayList<Recensione> getAllRec(){
@@ -72,6 +82,10 @@ public class JDBCRecensioneController implements RecensioneManager {
 			return lista;
 			
 		}
+	
+	/* (non-Javadoc)
+	 * @see recensione.RecensioneManager#getRec(gioco.model.Gioco)
+	 */
 	public ArrayList<Recensione> getRec(Gioco gioco){
 		ArrayList<Recensione> lista = new ArrayList<Recensione>();
 		Connection con = null;

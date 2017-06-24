@@ -18,11 +18,21 @@ import persona.utente.UtenteManager;
 import persona.utente.model.Utente;
 import recensione.model.Recensione;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class JDBCUtenteController.
+ */
 public class JDBCUtenteController implements UtenteManager {
 
+	/**
+	 * Instantiates a new JDBC utente controller.
+	 */
 	public JDBCUtenteController() {
 	}
 
+	/* (non-Javadoc)
+	 * @see persona.utente.UtenteManager#login(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public Utente login(String u, String p) {
 
@@ -79,6 +89,9 @@ public class JDBCUtenteController implements UtenteManager {
 		return utente;
 	}
 
+	/* (non-Javadoc)
+	 * @see persona.utente.UtenteManager#signup(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+	 */
 	@Override
 	public Utente signup(String username, String email, String password, String nome, String cognome) {
 		Connection con = null;
@@ -120,6 +133,9 @@ public class JDBCUtenteController implements UtenteManager {
 		return new Utente(username, email, password, nome, cognome, 0, 0);
 	}
 
+	/* (non-Javadoc)
+	 * @see persona.utente.UtenteManager#play(persona.utente.model.Utente, gioco.model.Gioco)
+	 */
 	@Override
 	public boolean play(Utente utente, Gioco gioco) {
 		Connection con = null;
@@ -261,9 +277,15 @@ public class JDBCUtenteController implements UtenteManager {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see persona.utente.UtenteManager#getReview()
+	 */
 	public void getReview() {
 	}
 
+	/* (non-Javadoc)
+	 * @see persona.utente.UtenteManager#getUsers()
+	 */
 	@Override
 	public ArrayList<Utente> getUsers() {
 		ArrayList<Utente> lista = new ArrayList<Utente>();
@@ -318,6 +340,9 @@ public class JDBCUtenteController implements UtenteManager {
 		return lista;
 	}
 
+	/* (non-Javadoc)
+	 * @see persona.utente.UtenteManager#setReview(recensione.model.Recensione)
+	 */
 	public boolean setReview(Recensione recensione) {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -360,6 +385,9 @@ public class JDBCUtenteController implements UtenteManager {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see persona.utente.UtenteManager#leveling(persona.utente.model.Utente)
+	 */
 	public ArrayList<String[]> leveling(Utente utente) {
 		ArrayList<String[]> lista = new ArrayList<String[]>();
 		String[] listatrofeo = new String[3];

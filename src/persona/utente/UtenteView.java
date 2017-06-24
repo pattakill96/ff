@@ -18,19 +18,42 @@ import java.util.Iterator;
 import java.util.List;
 import java.time.*;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UtenteView.
+ */
 public class UtenteView {
 
+	/** The reader. */
 	public static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+	/** The gioco controller. */
 	JDBCGiocoController giocoController = new JDBCGiocoController();
+
+	/** The utente controller. */
 	JDBCUtenteController utenteController = new JDBCUtenteController();
 
+	/** The gioco list. */
 	ArrayList<Gioco> giocoList = null;
+
+	/** The trofeo list. */
 	ArrayList<String[]> trofeoList = null;
 
+	/**
+	 * Instantiates a new utente view.
+	 */
 	public UtenteView() {
 
 	}
 
+	/**
+	 * Show.
+	 *
+	 * @param utente
+	 *            the utente
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 */
 	public void show(Utente utente) throws IOException {
 		System.out.println("Pagina dell'utente: " + utente.getUsername());
 		System.out.println("\n(1)Visualizza profilo\n(2)Cerca Gioco\n(3)Valuta e recensisci gioco\n(4)Esci");
@@ -43,10 +66,10 @@ public class UtenteView {
 			System.out.println("Vuoi visualizzare la scala dei livelli del giocatore?(y/n)");
 			String line1 = reader.readLine();
 			if (line1.equals("y")) {
-				trofeoList=utenteController.leveling(utente);
+				trofeoList = utenteController.leveling(utente);
 				for (int i = 0; i < trofeoList.size(); i++) {
 					int numero = i + 1;
-					System.out.println( trofeoList.get(i)[1] +" "+ trofeoList.get(i)[2] +" "+ trofeoList.get(i)[0]);
+					System.out.println(trofeoList.get(i)[1] + " " + trofeoList.get(i)[2] + " " + trofeoList.get(i)[0]);
 				}
 			}
 			UtenteView utenteView = new UtenteView();

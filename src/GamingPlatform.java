@@ -16,10 +16,21 @@ import java.util.List;
 import java.io.Console;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GamingPlatform.
+ */
 public class GamingPlatform {
 
+	/** The reader. */
 	public static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void main(String[] args) throws IOException {
 
 		// Instantiating user and moderator controllers
