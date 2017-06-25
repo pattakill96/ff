@@ -95,11 +95,14 @@ public class JDBCAmministratoreController implements AmministratoreManager {
 			String sql = "DELETE FROM utente WHERE utente.Username='" + utente.getUsername()+"'";
 			String sql1="DELETE FROM recensione WHERE recensione.Utente='"+utente.getUsername()+"'";
 			String sql2= "DELETE FROM premio WHERE premio.Utente='" + utente.getUsername()+"'";
+			String sql3="DELETE FROM giocato WHERE giocato.Gioco='"+utente.getUsername()+"'";
 			ps = con.prepareStatement(sql);
 			ps.executeUpdate();
 			ps = con.prepareStatement(sql1);
 			ps.executeUpdate();
 			ps = con.prepareStatement(sql2);
+			ps.executeUpdate();
+			ps = con.prepareStatement(sql3);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -179,11 +182,13 @@ public class JDBCAmministratoreController implements AmministratoreManager {
 
 			String sql = "DELETE  FROM gioco WHERE gioco.Nome='" + gioco.getNome() + "'";
 			String sql1 = "DELETE  FROM recensione WHERE recensione.Gioco='" + gioco.getNome() + "'";
+			String sql2 = "DELETE  FROM giocato WHERE giocato.Gioco='" + gioco.getNome() + "'";
 			ps = con.prepareStatement(sql);
 			ps.executeUpdate();
 			ps = con.prepareStatement(sql1);
 			ps.executeUpdate();
-
+			ps = con.prepareStatement(sql2);
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;

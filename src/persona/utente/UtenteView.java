@@ -99,7 +99,6 @@ public class UtenteView {
 		} else if (line.equals("4")) {
 			trofeoList = utenteController.leveling(utente);
 			for (int i = 0; i < trofeoList.size(); i++) {
-				int numero = i + 1;
 				System.out.println(trofeoList.get(i)[1] + " " + trofeoList.get(i)[2] + " " + trofeoList.get(i)[0]);
 			}
 		} else if (line.equals("5")) {
