@@ -53,11 +53,7 @@ public class ModeratoreView {
 	 */
 	public void show(Moderatore moderatore) throws IOException {
 		System.out.println("Pagina del moderatore: " + moderatore.getUsername());
-//<<<<<<< HEAD
 		System.out.println("\n(1)Promuovi utente\n(2)Retrocedi utente\n(3)Gestisci recensioni\n(4)Torna indietro");
-//=======
-		System.out.println("\n(1)Promuovi utente\n(2)Retrocedi utente\n(3)Gestisci recensioni\n(4)Esci\n");
-//>>>>>>> d7b87a1824db92cbb51eae140ce309b2822c208d
 		String line = reader.readLine();
 
 		if (line.equals("1")) {
