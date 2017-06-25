@@ -114,19 +114,10 @@ public class ModeratoreView {
 				boolean flag = moderatoreController.acceptReview(recList.get(app - 1), moderatore);
 				if (flag)
 					System.out.println("Recensione approvata\n");
-				ModeratoreView moderatoreview = new ModeratoreView();
-				moderatoreview.show(moderatore);
 			} else {
 				boolean flag = moderatoreController.deleteReview(recList.get(app - 1), null);
-<<<<<<< HEAD
 				if (flag) 
 					System.out.println("Recensione eliminata");
-=======
-				if (flag)
-					System.out.println("Recensione eliminata\n");
-				ModeratoreView moderatoreview = new ModeratoreView();
-				moderatoreview.show(moderatore);
->>>>>>> d7b87a1824db92cbb51eae140ce309b2822c208d
 			}
 			this.show(moderatore);
 
