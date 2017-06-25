@@ -10,9 +10,7 @@ import persona.moderatore.controller.JDBCModeratoreController;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Iterator;
 import java.util.ArrayList;
-import java.util.List;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -55,7 +53,11 @@ public class ModeratoreView {
 	 */
 	public void show(Moderatore moderatore) throws IOException {
 		System.out.println("Pagina del moderatore: " + moderatore.getUsername());
+<<<<<<< HEAD
 		System.out.println("\n(1)Promuovi utente\n(2)Retrocedi utente\n(3)Gestisci recensioni\n(4)Torna indietro");
+=======
+		System.out.println("\n(1)Promuovi utente\n(2)Retrocedi utente\n(3)Gestisci recensioni\n(4)Esci\n");
+>>>>>>> d7b87a1824db92cbb51eae140ce309b2822c208d
 		String line = reader.readLine();
 
 		if (line.equals("1")) {
@@ -111,11 +113,20 @@ public class ModeratoreView {
 			if (app1 == 1) {
 				boolean flag = moderatoreController.acceptReview(recList.get(app - 1), moderatore);
 				if (flag)
-					System.out.println("Recensione approvata");
+					System.out.println("Recensione approvata\n");
+				ModeratoreView moderatoreview = new ModeratoreView();
+				moderatoreview.show(moderatore);
 			} else {
 				boolean flag = moderatoreController.deleteReview(recList.get(app - 1), null);
+<<<<<<< HEAD
 				if (flag) 
 					System.out.println("Recensione eliminata");
+=======
+				if (flag)
+					System.out.println("Recensione eliminata\n");
+				ModeratoreView moderatoreview = new ModeratoreView();
+				moderatoreview.show(moderatore);
+>>>>>>> d7b87a1824db92cbb51eae140ce309b2822c208d
 			}
 			this.show(moderatore);
 

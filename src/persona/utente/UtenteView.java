@@ -3,8 +3,6 @@ package persona.utente;
 import gioco.model.Gioco;
 import persona.utente.model.Utente;
 import recensione.model.Recensione;
-import persona.moderatore.ModeratoreView;
-import persona.moderatore.controller.JDBCModeratoreController;
 import persona.utente.controller.JDBCUtenteController;
 import gioco.GiocoView;
 import gioco.controller.JDBCGiocoController;
@@ -13,9 +11,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
 import java.time.*;
 
 // TODO: Auto-generated Javadoc
@@ -63,7 +58,22 @@ public class UtenteView {
 			System.out.println("Username:" + utente.getUsername() + "\n" + "Nome:" + utente.getNome() + "\n"
 					+ "Cognome:" + utente.getCognome() + "\n" + "Email:" + utente.getEmail() + "\n" + "Livello:"
 					+ utente.getLivello() + "\n" + "Punti Esperienza:" + utente.getPe() + "\n\n");
+<<<<<<< HEAD
 			this.show(utente);
+=======
+			System.out.println("Vuoi visualizzare la scala dei livelli del giocatore?(y/n)");
+			String line1 = reader.readLine();
+			if (line1.equals("y")) {
+				trofeoList = utenteController.leveling(utente);
+				for (int i = 0; i < trofeoList.size(); i++) {
+					System.out.println(trofeoList.get(i)[1] + " " + trofeoList.get(i)[2] + " " + trofeoList.get(i)[0]+"\n");
+				}
+				if(trofeoList.size()==0)
+					System.out.println("L'utente "+utente.getUsername()+" non ha ancora raggiunto il livello 1\n");
+			}
+			UtenteView utenteView = new UtenteView();
+			utenteView.show(utente);
+>>>>>>> d7b87a1824db92cbb51eae140ce309b2822c208d
 		} else if (line.equals("2")) {
 			giocoList = giocoController.getGames();
 			System.out.println("--Lista giochi--");

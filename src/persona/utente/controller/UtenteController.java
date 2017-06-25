@@ -1,7 +1,6 @@
 package persona.utente.controller;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
 
 import gioco.model.Gioco;
 import persona.utente.UtenteManager;

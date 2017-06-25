@@ -4,15 +4,18 @@ import persona.utente.UtenteView;
 import persona.utente.controller.JDBCUtenteController;
 
 import persona.moderatore.model.Moderatore;
+import persona.amministratore.AmministratoreView;
+import persona.amministratore.controller.JDBCAmministratoreController;
+import persona.amministratore.model.Amministratore;
 import persona.moderatore.ModeratoreView;
-// import persona.moderatore.controller.ModeratoreController;
+//import persona.moderatore.controller.ModeratoreController;
 import persona.moderatore.controller.JDBCModeratoreController;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Iterator;
-import java.util.List;
+//import java.util.Iterator;
+//import java.util.List;
 import java.io.Console;
 
 
@@ -38,10 +41,13 @@ public class GamingPlatform {
 		Console cnsl = null;
 		Utente utente = null;
 		Moderatore moderatore = null;
+		Amministratore amministratore = null;
 		// UtenteController utenteController = new UtenteController();
 		JDBCUtenteController utenteController = new JDBCUtenteController();
 		// ModeratoreController moderatoreController = new ModeratoreController();
 		JDBCModeratoreController moderatoreController = new JDBCModeratoreController();
+		//AmministratoreController amministratoreController = newAmministratoreController();
+		JDBCAmministratoreController amministratoreController = new JDBCAmministratoreController();
 
 		System.out.print("(1) Login\n(2) Sign Up\n(3) Esci\n\n");
 		String line = reader.readLine();
@@ -73,6 +79,8 @@ public class GamingPlatform {
 						utenteview.show(utente);
 					}
 				} else {
+					String b=moderatoreController.isAdmin(username, password);
+					if(b == null){
 					moderatore = moderatoreController.login(username, password);
 					if (moderatore == null) {
 						System.out.println("Moderatore non trovato\n");
@@ -80,7 +88,12 @@ public class GamingPlatform {
 						ModeratoreView moderatoreview = new ModeratoreView();
 						moderatoreview.show(moderatore);
 					}
-				}	
+				}else{
+					amministratore = amministratoreController.login(username,password);
+					AmministratoreView amministratoreview = new AmministratoreView();
+					amministratoreview.show(amministratore);
+					}	
+				}
 			}
 
 		} else if (line.equals("2")) {

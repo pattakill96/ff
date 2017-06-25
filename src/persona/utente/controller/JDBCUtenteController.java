@@ -1,16 +1,12 @@
 package persona.utente.controller;
 
 import java.sql.Connection;
-import persona.utente.model.Level;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import gioco.model.Gioco;
