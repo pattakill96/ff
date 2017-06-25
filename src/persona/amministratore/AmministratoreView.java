@@ -1,10 +1,12 @@
-package persona.moderatore;
+package persona.amministratore;
 
 import persona.moderatore.model.Moderatore;
 import persona.utente.controller.JDBCUtenteController;
 import recensione.model.*;
 import recensione.controller.*;
 import persona.utente.model.Utente;
+import persona.amministratore.controller.JDBCAmministratoreController;
+import persona.amministratore.model.Amministratore;
 import persona.moderatore.controller.JDBCModeratoreController;
 
 import java.io.BufferedReader;
@@ -12,11 +14,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import gioco.controller.JDBCGiocoController;
+import gioco.model.Gioco;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class ModeratoreView.
  */
-public class ModeratoreView {
+public class AmministratoreView {
 
 	/** The reader. */
 	public static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -29,6 +34,12 @@ public class ModeratoreView {
 	
 	/** The recensione controller. */
 	JDBCRecensioneController recensioneController = new JDBCRecensioneController();
+	
+	/** The amministratore controller. */
+	JDBCAmministratoreController amministratoreController = new JDBCAmministratoreController();
+	
+	/** The gioco controller. */
+	JDBCGiocoController giocoController = new JDBCGiocoController();
 
 	/** The user list. */
 	ArrayList<Utente> userList = null;
@@ -38,22 +49,25 @@ public class ModeratoreView {
 	
 	/** The rec list. */
 	ArrayList<Recensione> recList = null;
+	
+	/** The gioco list. */
+	ArrayList<Gioco> giocoList = null;
 
 	/**
 	 * Instantiates a new moderatore view.
 	 */
-	public ModeratoreView() {
+	public AmministratoreView() {
 	}
 
 	/**
 	 * Show.
 	 *
-	 * @param moderatore the moderatore
+	 * @param amministratore the moderatore
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public void show(Moderatore moderatore) throws IOException {
-		System.out.println("Pagina del moderatore: " + moderatore.getUsername());
-		System.out.println("\n(1)Promuovi utente\n(2)Retrocedi utente\n(3)Gestisci recensioni\n(4)Esci\n");
+	public void show(Amministratore amministratore) throws IOException {
+		System.out.println("Pagina dell'amministratore: " + amministratore.getUsername());
+		System.out.println("\n(1)Rimuovi utente\n(2)Rimuovi moderatore\n(3)Rimuovi gioco\n");
 		String line = reader.readLine();
 
 		if (line.equals("1")) {
@@ -63,12 +77,14 @@ public class ModeratoreView {
 				int numero = i + 1;
 				System.out.println("Utente " + numero + ": " + userList.get(i).getUsername());
 			}
-			System.out.println("\nQuale utente vuoi promuovere?");
+			System.out.println("\nQuale utente vuoi rimuovere?");
 			String line1 = reader.readLine();
 			int app = Integer.parseInt(line1);
-			boolean flag = moderatoreController.promoteUser(userList.get(app - 1));
+			boolean flag = amministratoreController.deleteUser(userList.get(app - 1));
 			if (flag)
-				System.out.println("Utente promosso");
+				System.out.println("Utente rimosso");
+			AmministratoreView amministratoreview = new AmministratoreView();
+			amministratoreview.show(amministratore);
 		} else if (line.equals("2")) {
 			modList = moderatoreController.getMods();
 			System.out.println("--Lista moderatori--");
@@ -76,46 +92,29 @@ public class ModeratoreView {
 				int numero = i + 1;
 				System.out.println("Moderatore" + numero + ": " + modList.get(i).getUsername());
 			}
-			System.out.println("\nQuale moderatore vuoi retrocedere?");
+			System.out.println("\nQuale moderatore vuoi rimuovere?");
 			String line1 = reader.readLine();
 			int app = Integer.parseInt(line1);
-			boolean flag = moderatoreController.demoteUser(modList.get(app - 1));
+			boolean flag = amministratoreController.deleteModeratore(modList.get(app - 1));
 			if (flag)
-				System.out.println("Moderatore retrocesso");
+				System.out.println("Moderatore rimosso");
+			AmministratoreView amministratoreview = new AmministratoreView();
+			amministratoreview.show(amministratore);
 		} else if (line.equals("3")) {
-			recList = recensioneController.getAllRec();
-			if (recList.size() == 0) {
-				System.out.println("Nessuna recensione in attesa di moderazione\n");
-				ModeratoreView moderatoreview = new ModeratoreView();
-				moderatoreview.show(moderatore);
-			}
-			System.out.println("--Lista recensioni--");
-			for (int i = 0; i < recList.size(); i++) {
+			giocoList = giocoController.getGames();
+			System.out.println("--Lista giochi--");
+			for (int i = 0; i < giocoList.size(); i++) {
 				int numero = i + 1;
-				System.out.println(
-						"Recensone" + numero + ": " + recList.get(i).getGioco() + "/" + recList.get(i).getVoto() + "--"
-								+ recList.get(i).getDescrizione() + "[" + recList.get(i).getUtente() + "];\n");
+				System.out.println("Gioco" + numero + ": " + giocoList.get(i).getNome());
 			}
-			System.out.println("\nQuale recensione vuoi approvare/respingere?");
+			System.out.println("\nQuale gioco vuoi rimuovere?");
 			String line1 = reader.readLine();
 			int app = Integer.parseInt(line1);
-			System.out.println("\nVuoi approvare o respingere questa recensione?(1/0)");
-			String line3 = reader.readLine();
-			int app1 = Integer.parseInt(line3);
-			if (app1 == 1) {
-				boolean flag = moderatoreController.acceptReview(recList.get(app - 1), moderatore);
-				if (flag)
-					System.out.println("Recensione approvata\n");
-				ModeratoreView moderatoreview = new ModeratoreView();
-				moderatoreview.show(moderatore);
-			} else {
-				boolean flag = moderatoreController.deleteReview(recList.get(app - 1), null);
-				if (flag)
-					System.out.println("Recensione eliminata\n");
-				ModeratoreView moderatoreview = new ModeratoreView();
-				moderatoreview.show(moderatore);
-			}
-
+			boolean flag = amministratoreController.deleteGame(giocoList.get(app - 1));
+			if (flag)
+				System.out.println("Gioco rimosso");
+			AmministratoreView amministratoreview = new AmministratoreView();
+			amministratoreview.show(amministratore);
 		} else if (line.equals("4")) {
 
 		}

@@ -1,6 +1,5 @@
 package recensione;
 
-import persona.utente.model.Utente;
 import recensione.model.*;
 import gioco.model.*;
 import java.util.*;

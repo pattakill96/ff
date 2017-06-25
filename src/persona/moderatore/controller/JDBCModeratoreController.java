@@ -7,12 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 import persona.moderatore.ModeratoreManager;
 import persona.moderatore.model.Moderatore;
 
-import persona.utente.UtenteManager;
 import persona.utente.model.Utente;
 import recensione.model.Recensione;
 
@@ -83,6 +81,52 @@ public class JDBCModeratoreController implements ModeratoreManager {
 		return moderatore;
 	}
 
+	public String isAdmin(String u, String p){
+		Connection con = null;
+		Statement st = null;
+		ResultSet rs = null;
+		String b=null;
+
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gamingplatform", "root", "");
+
+			st = con.createStatement();
+			rs = st.executeQuery("SELECT Admin " + "FROM moderatore " + "WHERE moderatore.Username='" + u
+					+ "' AND moderatore.Password='" + p + "'");
+
+			while (rs.next()) {
+				b = rs.getString("Admin");
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return b;
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+					return b;
+				} catch (SQLException e) {
+					/* Do Nothing */}
+			}
+			if (st != null) {
+				try {
+					st.close();
+				} catch (SQLException e) {
+					/* Do Nothing */}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					/* Do Nothing */}
+			}
+		}
+
+		return b;
+		
+	}
 	/* (non-Javadoc)
 	 * @see persona.moderatore.ModeratoreManager#acceptReview(recensione.model.Recensione, persona.moderatore.model.Moderatore)
 	 */
@@ -179,7 +223,7 @@ public class JDBCModeratoreController implements ModeratoreManager {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gamingplatform", "root", "");
 
 			st = con.createStatement();
-			rs = st.executeQuery("SELECT * " + "FROM moderatore ");
+			rs = st.executeQuery("SELECT * " + "FROM moderatore WHERE Admin is null");
 
 			while (rs.next()) {
 				String username = rs.getString("Username");
@@ -231,8 +275,11 @@ public class JDBCModeratoreController implements ModeratoreManager {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gamingplatform", "root", "");
 
 			String sql = ("DELETE FROM utente WHERE utente.Username='" + utente.getUsername() + "'");
+			String sql1 =("DELETE FROM recensione WHERE recensione.Utente='" + utente.getUsername() + "'");
 
 			ps = con.prepareStatement(sql);
+			ps.executeUpdate();
+			ps = con.prepareStatement(sql1);
 			ps.executeUpdate();
 
 		} catch (SQLException e) {

@@ -3,8 +3,6 @@ package persona.utente;
 import gioco.model.Gioco;
 import persona.utente.model.Utente;
 import recensione.model.Recensione;
-import persona.moderatore.ModeratoreView;
-import persona.moderatore.controller.JDBCModeratoreController;
 import persona.utente.controller.JDBCUtenteController;
 import gioco.GiocoView;
 import gioco.controller.JDBCGiocoController;
@@ -13,9 +11,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
 import java.time.*;
 
 // TODO: Auto-generated Javadoc
@@ -68,9 +63,10 @@ public class UtenteView {
 			if (line1.equals("y")) {
 				trofeoList = utenteController.leveling(utente);
 				for (int i = 0; i < trofeoList.size(); i++) {
-					int numero = i + 1;
-					System.out.println(trofeoList.get(i)[1] + " " + trofeoList.get(i)[2] + " " + trofeoList.get(i)[0]);
+					System.out.println(trofeoList.get(i)[1] + " " + trofeoList.get(i)[2] + " " + trofeoList.get(i)[0]+"\n");
 				}
+				if(trofeoList.size()==0)
+					System.out.println("L'utente "+utente.getUsername()+" non ha ancora raggiunto il livello 1\n");
 			}
 			UtenteView utenteView = new UtenteView();
 			utenteView.show(utente);

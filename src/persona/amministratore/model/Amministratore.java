@@ -1,11 +1,12 @@
-package persona.moderatore.model;
+package persona.amministratore.model;
+
 
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Moderatore.
+ * The Class Amministratore.
  */
-public class Moderatore {
+public class Amministratore {
 
 	/** The username. */
 	private String username;
@@ -31,7 +32,7 @@ public class Moderatore {
 	 * @param nome the nome
 	 * @param cognome the cognome
 	 */
-	public Moderatore(String username, String email, String password, String nome, String cognome) {
+	public Amministratore(String username, String email, String password, String nome, String cognome) {
 		this.username = username;
 		this.nome = nome;
 		this.cognome = cognome;

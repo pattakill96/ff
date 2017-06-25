@@ -1,6 +1,5 @@
 package recensione.model;
-import java.time.LocalDate;
-import java.util.Date;
+
 
 // TODO: Auto-generated Javadoc
 /**

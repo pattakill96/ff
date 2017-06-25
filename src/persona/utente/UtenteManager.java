@@ -4,7 +4,6 @@ import persona.utente.model.Utente;
 import recensione.model.Recensione;
 
 import java.util.*;
-import java.util.logging.Level;
 
 import gioco.model.*;
 

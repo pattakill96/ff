@@ -2,18 +2,13 @@ package recensione.controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
-import persona.utente.UtenteManager;
 import recensione.model.*;
-import persona.utente.model.Utente;
 import recensione.RecensioneManager;
-import gioco.GiocoManager;
 import gioco.model.Gioco;
 
 // TODO: Auto-generated Javadoc
