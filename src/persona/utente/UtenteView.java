@@ -56,24 +56,14 @@ public class UtenteView {
 	 */
 	public void show(Utente utente) throws IOException {
 		System.out.println("Pagina dell'utente: " + utente.getUsername());
-		System.out.println("\n(1)Visualizza profilo\n(2)Cerca Gioco\n(3)Valuta e recensisci gioco\n(4)Esci");
+		System.out.println("\n(1)Visualizza profilo\n(2)Cerca Gioco\n(3)Valuta e recensisci gioco\n(4)Visualizza scala livelli\n(5)Torna indietro");
 		String line = reader.readLine();
 
 		if (line.equals("1")) {
 			System.out.println("Username:" + utente.getUsername() + "\n" + "Nome:" + utente.getNome() + "\n"
 					+ "Cognome:" + utente.getCognome() + "\n" + "Email:" + utente.getEmail() + "\n" + "Livello:"
 					+ utente.getLivello() + "\n" + "Punti Esperienza:" + utente.getPe() + "\n\n");
-			System.out.println("Vuoi visualizzare la scala dei livelli del giocatore?(y/n)");
-			String line1 = reader.readLine();
-			if (line1.equals("y")) {
-				trofeoList = utenteController.leveling(utente);
-				for (int i = 0; i < trofeoList.size(); i++) {
-					int numero = i + 1;
-					System.out.println(trofeoList.get(i)[1] + " " + trofeoList.get(i)[2] + " " + trofeoList.get(i)[0]);
-				}
-			}
-			UtenteView utenteView = new UtenteView();
-			utenteView.show(utente);
+			this.show(utente);
 		} else if (line.equals("2")) {
 			giocoList = giocoController.getGames();
 			System.out.println("--Lista giochi--");
@@ -108,14 +98,17 @@ public class UtenteView {
 					data);
 			boolean flag = utenteController.setReview(recensione);
 			if (flag) {
-				System.out.println(
-						"La tua recensione è stata inserita nel database è necessario che un moderatore la approvi\n\n");
+				System.out.println("La tua recensione è stata inserita nel database è necessario che un moderatore la approvi\n\n");
 			}
-
-			UtenteView utenteView = new UtenteView();
-			utenteView.show(utente);
+			this.show(utente);
 		} else if (line.equals("4")) {
-
+			trofeoList = utenteController.leveling(utente);
+			for (int i = 0; i < trofeoList.size(); i++) {
+				int numero = i + 1;
+				System.out.println(trofeoList.get(i)[1] + " " + trofeoList.get(i)[2] + " " + trofeoList.get(i)[0]);
+			}
+		} else if (line.equals("5")) {
+			// Automatically returns to main menu
 		}
 
 	}

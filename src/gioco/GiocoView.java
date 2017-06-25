@@ -51,7 +51,7 @@ public class GiocoView {
 	 */
 	public void show(Utente utente, Gioco gioco) throws IOException {
 		System.out.println(gioco.getNome() + " " + gioco.getDescrizione());
-		System.out.println("\n(1)Gioca\n(2)Visualizza Recensione\n");
+		System.out.println("\n(1)Gioca\n(2)Visualizza Recensione\n(3)Torna indietro");
 		String line = reader.readLine();
 		if (line.equals("1")) {
 			boolean flag = utentecontroller.play(utente, gioco);
@@ -64,16 +64,17 @@ public class GiocoView {
 			recList = recensioneController.getRec(gioco);
 			if (recList.size() == 0) {
 				System.out.println("Non è presente nessuna recensione di questo gioco!\n");
-				UtenteView utenteView = new UtenteView();
-				utenteView.show(utente);
+				this.show(utente, gioco);
 			}
 			System.out.println("--Lista recensioni--");
 			for (int i = 0; i < recList.size(); i++) {
 				int numero = i + 1;
-				System.out.println("Recensone" + numero + ": " + recList.get(i).getVoto() + "--"
+				System.out.println("Recensione" + numero + ": " + recList.get(i).getVoto() + "--"
 						+ recList.get(i).getDescrizione() + "--[Utente:" + recList.get(i).getUtente() + "]" + "(Data :"
 						+ recList.get(i).getData() + ")" + ";\n");
 			}
+			this.show(utente, gioco);
+		} else if (line.equals("3")) {
 			UtenteView utenteView = new UtenteView();
 			utenteView.show(utente);
 		}

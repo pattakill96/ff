@@ -55,7 +55,7 @@ public class ModeratoreView {
 	 */
 	public void show(Moderatore moderatore) throws IOException {
 		System.out.println("Pagina del moderatore: " + moderatore.getUsername());
-		System.out.println("\n(1)Promuovi utente\n(2)Retrocedi utente\n(3)Gestisci recensioni\n");
+		System.out.println("\n(1)Promuovi utente\n(2)Retrocedi utente\n(3)Gestisci recensioni\n(4)Torna indietro");
 		String line = reader.readLine();
 
 		if (line.equals("1")) {
@@ -69,8 +69,10 @@ public class ModeratoreView {
 			String line1 = reader.readLine();
 			int app = Integer.parseInt(line1);
 			boolean flag = moderatoreController.promoteUser(userList.get(app - 1));
-			if (flag)
+			if (flag) {
 				System.out.println("Utente promosso");
+				this.show(moderatore);
+			}
 		} else if (line.equals("2")) {
 			modList = moderatoreController.getMods();
 			System.out.println("--Lista moderatori--");
@@ -82,8 +84,10 @@ public class ModeratoreView {
 			String line1 = reader.readLine();
 			int app = Integer.parseInt(line1);
 			boolean flag = moderatoreController.demoteUser(modList.get(app - 1));
-			if (flag)
+			if (flag) {
 				System.out.println("Moderatore retrocesso");
+				this.show(moderatore);
+			}
 		} else if (line.equals("3")) {
 			recList = recensioneController.getAllRec();
 			if (recList.size() == 0) {
@@ -110,12 +114,13 @@ public class ModeratoreView {
 					System.out.println("Recensione approvata");
 			} else {
 				boolean flag = moderatoreController.deleteReview(recList.get(app - 1), null);
-				if (flag)
+				if (flag) 
 					System.out.println("Recensione eliminata");
 			}
+			this.show(moderatore);
 
 		} else if (line.equals("4")) {
-
+			
 		}
 
 	}

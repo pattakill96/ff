@@ -17,6 +17,8 @@ import gioco.model.Gioco;
 import persona.utente.UtenteManager;
 import persona.utente.model.Utente;
 import recensione.model.Recensione;
+import gioco.executables.HoL;
+import gioco.executables.StP;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -140,6 +142,16 @@ public class JDBCUtenteController implements UtenteManager {
 	public boolean play(Utente utente, Gioco gioco) {
 		Connection con = null;
 		PreparedStatement ps = null;
+		
+		if(gioco.getNome().equals("HigherLower")) {
+			HoL higherlower = new HoL();
+			higherlower.show();
+		} else if(gioco.getNome().equals("StopThePoint")) {
+			StP stopthepoint = new StP();
+			stopthepoint.show();
+		} else {
+			System.out.println("Non esiste nessun eseguibile di questo gioco.");
+		}
 
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost/gamingplatform", "root", "");
